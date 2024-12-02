@@ -1,45 +1,38 @@
 #include "Matrice.h"
 #include "iostream"
+#include "Fichier.h"
 using namespace std;
 
-Matrice::Matrice(int lon, int lar) : lignes(lon), colonnes(lar) {
-	grille.resize(lignes);
-	for (int i = 0; i < lignes; ++i) {
-		grille[i].resize(colonnes);
-	}
-	for (int i = 0; i < lignes; ++i) {
-		for (int j = 0; j < colonnes; ++j) {
-			grille[i][j] = Cellule(false);
-		}
-	}
-	grille[9][8] = Cellule(true);
-	grille[9][9] = Cellule(true);
-	grille[9][10] = Cellule(true);
-	grille[8][10] = Cellule(true);
-	grille[7][9] = Cellule(true);
+Matrice::Matrice(Fichier fichier): fichier(nomFichier) {
+	grille = fichier.genererMatrice();
 }
 
 void Matrice::afficher() {
 	for (auto& ligne : grille) {
 		for (auto& cellule : ligne) {
-			std::cout << (cellule.estVivante() ? "1" : "0") << " ";
+			if (cellule.estVivante()) {
+				std::cout << "1" << " ";
+			}
+			else {
+				std::cout << "0" << " ";
+			}
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 }
 
-void Matrice::mettreAJour() {
+void Matrice::mettreAJour( int ligne, int colonne) {
 	// Calculer le prochain état pour chaque cellule
-	for (int i = 0; i < lignes; ++i) {
-		for (int j = 0; j < colonnes; ++j) {
-			grille[i][j].determinerEtatSuivant(grille, i, j, lignes, colonnes);
+	for (int i = 0; i < ligne; ++i) {
+		for (int j = 0; j < colonne; ++j) {
+			grille[i][j].determinerEtatSuivant(grille, i, j, ligne, colonne);
 		}
 	}
 
 	// Appliquer le prochain état à toutes les cellules
-	for (int i = 0; i < lignes; ++i) {
-		for (int j = 0; j < colonnes; ++j) {
+	for (int i = 0; i < ligne; ++i) {
+		for (int j = 0; j < colonne; ++j) {
 			grille[i][j].appliquerEtatSuivant();
 		}
 	}

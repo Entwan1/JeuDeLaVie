@@ -1,36 +1,23 @@
 #include "Matrice.h"
 #include "Cellule.h"
+#include "Fichier.h"
 
 #include <iostream>
 using namespace std;
 
 int main() {
+	int nb_iter = 10;
+	string nomFichier;
 
-	Matrice grille(20, 20);
-	/*
-	int choix = 0;
-	cout << "Choix mode :\n 1: mode fichier \n 2: mode graphique" << endl;
-	cin >> choix;
+	cout << "Nom fichier :";
+	cin >> nomFichier;
 
-	if (choix==1) {
-		string nomFichier;
-		cout << "Nom fichier :";
-		cin >> choix;
+	Fichier fichier(nomFichier);
+	Matrice grille(fichier);
+	
+	for (int i=0; i < nb_iter; i++) {
+		grille.afficher();
+		grille.mettreAJour(fichier.getLigne(), fichier.getColonne());
 	}
 	return 0;
-	*/
-	
-	grille.afficher();
-	grille.mettreAJour();
-	grille.afficher();
-	grille.mettreAJour();
-	grille.afficher();
-	grille.mettreAJour();
-	grille.afficher();
-	grille.mettreAJour();
-	grille.afficher();
-	grille.mettreAJour();
-	grille.afficher();
-	grille.mettreAJour();
-	grille.afficher();
 }

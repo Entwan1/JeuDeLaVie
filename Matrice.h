@@ -3,16 +3,20 @@
 
 #include <vector>
 #include "Cellule.h"
+#include "Fichier.h"
+
 class Cellule;
 
 class Matrice {
 private:
-	int lignes, colonnes;
+	std::string nomFichier;
 	std::vector<std::vector<Cellule>> grille;
+	Fichier fichier;
+	
 public:
-	Matrice(int lon, int lar);
+	Matrice(Fichier fichier);
 	void afficher();
-	void mettreAJour();
+	void mettreAJour(int ligne, int colonne);
 };
 
 #endif
