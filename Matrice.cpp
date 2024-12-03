@@ -27,6 +27,9 @@ void Matrice::afficher() {
 }
 
 void Matrice::mettreAJour( int ligne, int colonne) {
+
+	ancienneGrille = grille;  // Copie de l'état actuel de la grille
+
 	// Calculer le prochain état pour chaque cellule
 	for (int i = 0; i < ligne; ++i) {
 		for (int j = 0; j < colonne; ++j) {
@@ -40,4 +43,16 @@ void Matrice::mettreAJour( int ligne, int colonne) {
 			grille[i][j].appliquerEtatSuivant();
 		}
 	}
+}
+
+bool Matrice::estStable() {
+	// Comparer la grille actuelle à la grille précédente
+	for (int i = 0; i < grille.size(); ++i) {
+		for (int j = 0; j < grille[i].size(); ++j) {
+			if (grille[i][j].estVivante() != ancienneGrille[i][j].estVivante()) {
+				return false; // Si une cellule a changé, la grille n'est pas stable
+			}
+		}
+	}
+	return true; // La grille n'a pas changé, elle est stable
 }
