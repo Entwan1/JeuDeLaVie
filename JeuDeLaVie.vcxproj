@@ -129,16 +129,21 @@
   <ItemGroup>
     <ClCompile Include="Cellule.cpp" />
     <ClCompile Include="Fichier.cpp" />
+    <ClCompile Include="IUGraphique.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cellule.h" />
     <ClInclude Include="Fichier.h" />
+    <ClInclude Include="IUGraphique.h" />
     <ClInclude Include="Matrice.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

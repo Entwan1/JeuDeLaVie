@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <direct.h>
+#include <sys/stat.h>
 #include <string>
 
 using namespace std;
@@ -57,7 +57,7 @@ void Fichier::creerDossier() {
     // Crée un dossier avec le même nom que le fichier (sans l'extension)
     nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
 
-    if (_mkdir(nomDossier.c_str()) == 0) {
+    if (!mkdir(nomDossier.c_str(), 0777)) {
         std::cout << "Dossier cree : " << nomDossier << std::endl;
     }
     else {
@@ -71,7 +71,7 @@ void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille,
 
     std::ofstream fichierSortie(nomFichierSortie);  // Ouvre le fichier en écriture
     if (!fichierSortie) {
-        std::cerr << "Erreur : impossible de créer le fichier " << nomFichierSortie << std::endl;
+        std::cerr << "Erreur : impossible de creer le fichier " << nomFichierSortie << std::endl;
         return;
     }
     fichierSortie << grille.size() << " " << grille[0].size() << "\n";

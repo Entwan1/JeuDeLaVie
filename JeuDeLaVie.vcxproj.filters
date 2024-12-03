@@ -27,6 +27,9 @@
     <ClCompile Include="Fichier.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="IUGraphique.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrice.h">
@@ -38,8 +41,16 @@
     <ClInclude Include="Fichier.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="IUGraphique.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile">
+      <Filter>Fichiers sources</Filter>
+    </None>
   </ItemGroup>
 </Project>
