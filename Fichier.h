@@ -7,12 +7,14 @@
 
 class Fichier {
 private:
-	std::string nomFichier;
+	std::string nomFichier, nomDossier;
 public:
-	Fichier(std::string nom): nomFichier(nom){}
+	Fichier(std::string nom);
 	std::vector<std::vector<Cellule>> genererMatrice();
 	int getLigne();
 	int getColonne();
+	void creerDossier();
+	void sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille, int numeroMiseAJour);
 };
 
 #endif

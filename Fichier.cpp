@@ -4,7 +4,12 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <direct.h>
+#include <string>
+
 using namespace std;
+
+Fichier::Fichier(std::string nom) : nomFichier(nom) {}
 
 int Fichier::getLigne() {
     int ligne;
@@ -28,15 +33,12 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
     if (!fichier) {
         cerr << "Erreur : Impossible d'ouvrir le fichier " << nomFichier << endl;
         exit(1);
-    } // Ouvre le fichier en lecture
+    }
     
     int lignes;
     int colonnes;
 
-    // Lire les dimensions de la grille
     fichier >> lignes >> colonnes;
-
-    // Redimensionner la grille si nécessaire
     matrice.resize(lignes, vector<Cellule>(colonnes));
 
     // Lire la grille ligne par ligne
@@ -49,4 +51,36 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
     }
     fichier.close(); // Ferme le fichier
     return matrice;
+}
+
+void Fichier::creerDossier() {
+    // Crée un dossier avec le même nom que le fichier (sans l'extension)
+    nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
+
+    if (_mkdir(nomDossier.c_str()) == 0) {
+        std::cout << "Dossier cree : " << nomDossier << std::endl;
+    }
+    else {
+        std::cerr << "Erreur lors de la creation du dossier ou dossier existant." << std::endl;
+    }
+}
+
+void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille, int numeroMiseAJour) {
+    // Crée un nom de fichier basé sur le numéro de mise à jour
+    std::string nomFichierSortie = nomDossier + "/iteration" + std::to_string(numeroMiseAJour) + ".txt";
+
+    std::ofstream fichierSortie(nomFichierSortie);  // Ouvre le fichier en écriture
+    if (!fichierSortie) {
+        std::cerr << "Erreur : impossible de créer le fichier " << nomFichierSortie << std::endl;
+        return;
+    }
+    fichierSortie << grille.size() << " " << grille[0].size() << "\n";
+ 
+    for (const auto& ligne : grille) {
+        for (const auto& cellule : ligne) {
+            fichierSortie << (cellule.estVivante() ? "1" : "0") << " ";
+        }
+        fichierSortie << "\n";
+    }
+    fichierSortie.close();  // Ferme le fichier
 }

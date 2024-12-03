@@ -7,6 +7,10 @@ Matrice::Matrice(Fichier fichier): fichier(nomFichier) {
 	grille = fichier.genererMatrice();
 }
 
+std::vector<std::vector<Cellule>> Matrice::getGrille() const {
+	return grille;
+}
+
 void Matrice::afficher() {
 	for (auto& ligne : grille) {
 		for (auto& cellule : ligne) {

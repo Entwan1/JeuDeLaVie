@@ -17,6 +17,7 @@ public:
 	Matrice(Fichier fichier);
 	void afficher();
 	void mettreAJour(int ligne, int colonne);
+	std::vector<std::vector<Cellule>> getGrille() const;
 };
 
 #endif
