@@ -6,7 +6,6 @@
 using namespace std;
 
 int main() {
-	int nb_iter = 30;
 	string nomFichier;
 
 	cout << "Nom fichier :";
@@ -16,10 +15,16 @@ int main() {
 	Matrice grille(fichier);
 
 	fichier.creerDossier();
-	for (int i=0; i < nb_iter+1; i++) {
+	bool stable = false;
+	int i = 0;
+	while (!stable) {
 		grille.afficher();
 		fichier.sauvegarderGrille(grille.getGrille(), i);
 		grille.mettreAJour(fichier.getLigne(), fichier.getColonne());
+
+		// Vérifier si la grille est stable
+		stable = grille.estStable();
+		i++;
 	}
 	return 0;
 }
