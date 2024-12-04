@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <string>
 
+//coucou
+
 using namespace std;
 
 Fichier::Fichier(std::string nom) : nomFichier(nom) {}
