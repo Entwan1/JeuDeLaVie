@@ -21,6 +21,7 @@ private:
     bool estEnCours;
     Constructions constructionSelectionnee;
     sf::Vector2i positionCurseur;
+    int delaiMs; // Délai entre les générations, non modifiable pendant le jeu
 
     void dessinerGrille(const Matrice& grille);
     void gererEvenements(sf::Event& event, Matrice& grille);
