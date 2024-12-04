@@ -1,4 +1,4 @@
-#include "Matrice.h"
+ï»¿#include "Matrice.h"
 #include "Cellule.h"
 #include "Fichier.h"
 #include "IUGraphique.h"
@@ -28,10 +28,10 @@ int main() {
 	}
 	return 0;
 	*/
-	int tailleCellule = 20;  // Taille de chaque cellule à l'écran
+	int tailleCellule = 20;  // Taille de chaque cellule ï¿½ l'ï¿½cran
 	int delaiMs = 500;
 	IUGraphique interfaceGraphique(tailleCellule);
-	
+
 	interfaceGraphique.lancer(grille, delaiMs);
 
 }

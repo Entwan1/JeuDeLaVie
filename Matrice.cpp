@@ -1,58 +1,84 @@
-#include "Matrice.h"
+ï»¿#include "Matrice.h"
 #include "iostream"
 #include "Fichier.h"
+#include <thread>
 using namespace std;
 
-Matrice::Matrice(Fichier fichier): fichier(nomFichier) {
-	grille = fichier.genererMatrice();
+Matrice::Matrice(Fichier fichier) : fichier(nomFichier) {
+    grille = fichier.genererMatrice();
 }
 
-std::vector<std::vector<Cellule>> Matrice::getGrille() const {
-	return grille;
+std::vector<std::vector<Cellule>>& Matrice::getGrille() {
+    return grille;
+}
+
+const std::vector<std::vector<Cellule>>& Matrice::getGrille() const {
+    return grille;
 }
 
 void Matrice::afficher() {
-	for (auto& ligne : grille) {
-		for (auto& cellule : ligne) {
-			if (cellule.estVivante()) {
-				std::cout << "1" << " ";
-			}
-			else {
-				std::cout << "0" << " ";
-			}
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
+    for (auto& ligne : grille) {
+        for (auto& cellule : ligne) {
+            if (cellule.estVivante()) {
+                std::cout << "1" << " ";
+            }
+            else {
+                std::cout << "0" << " ";
+            }
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n";
 }
 
-void Matrice::mettreAJour( int ligne, int colonne) {
+void Matrice::mettreAJour(int ligne, int colonne) {
+    ancienneGrille = grille;  // Copie de l'Ã©tat actuel de la grille
 
-	ancienneGrille = grille;  // Copie de l'état actuel de la grille
+    // Nombre de threads (vous pouvez ajuster selon le nombre de cÅ“urs)
+    const unsigned int nb_threads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads;
 
-	// Calculer le prochain état pour chaque cellule
-	for (int i = 0; i < ligne; ++i) {
-		for (int j = 0; j < colonne; ++j) {
-			grille[i][j].determinerEtatSuivant(grille, i, j, ligne, colonne);
-		}
-	}
+    // Diviser la grille en segments pour chaque thread
+    auto calculEtatSuivant = [&](int debut, int fin) {
+        for (int i = debut; i < fin; ++i) {
+            for (int j = 0; j < colonne; ++j) {
+                grille[i][j].determinerEtatSuivant(grille, i, j, ligne, colonne);
+            }
+        }
+        };
 
-	// Appliquer le prochain état à toutes les cellules
-	for (int i = 0; i < ligne; ++i) {
-		for (int j = 0; j < colonne; ++j) {
-			grille[i][j].appliquerEtatSuivant();
-		}
-	}
+    // RÃ©partition des lignes entre les threads
+    int lignesParThread = ligne / nb_threads;
+
+    // CrÃ©ation des threads
+    for (unsigned int t = 0; t < nb_threads; ++t) {
+        int debut = t * lignesParThread;
+        int fin = (t == nb_threads - 1) ? ligne : debut + lignesParThread;
+
+        threads.emplace_back(calculEtatSuivant, debut, fin);
+    }
+
+    // Attendre que tous les threads aient terminÃ©
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    // Application sÃ©quentielle du prochain Ã©tat (potentiellement aussi parallÃ©lisable)
+    for (int i = 0; i < ligne; ++i) {
+        for (int j = 0; j < colonne; ++j) {
+            grille[i][j].appliquerEtatSuivant();
+        }
+    }
 }
 
 bool Matrice::estStable() {
-	// Comparer la grille actuelle à la grille précédente
-	for (int i = 0; i < grille.size(); ++i) {
-		for (int j = 0; j < grille[i].size(); ++j) {
-			if (grille[i][j].estVivante() != ancienneGrille[i][j].estVivante()) {
-				return false; // Si une cellule a changé, la grille n'est pas stable
-			}
-		}
-	}
-	return true; // La grille n'a pas changé, elle est stable
+    // Comparer la grille actuelle ï¿½ la grille prï¿½cï¿½dente
+    for (int i = 0; i < grille.size(); ++i) {
+        for (int j = 0; j < grille[i].size(); ++j) {
+            if (grille[i][j].estVivante() != ancienneGrille[i][j].estVivante()) {
+                return false; // Si une cellule a changï¿½, la grille n'est pas stable
+            }
+        }
+    }
+    return true; // La grille n'a pas changï¿½, elle est stable
 }

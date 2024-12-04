@@ -1,11 +1,11 @@
-
-#include "Fichier.h"
+ï»¿#include "Fichier.h"
 #include "Cellule.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <sys/stat.h>
 #include <string>
+//#include <direct.h> // Pour mkdir sur Windows
 
 using namespace std;
 
@@ -27,14 +27,14 @@ int Fichier::getColonne() {
 
 std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
 
-	vector<vector<Cellule>> matrice;
+    vector<vector<Cellule>> matrice;
     ifstream fichier(nomFichier);
-    
+
     if (!fichier) {
         cerr << "Erreur : Impossible d'ouvrir le fichier " << nomFichier << endl;
         exit(1);
     }
-    
+
     int lignes;
     int colonnes;
 
@@ -45,7 +45,7 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
     for (int i = 0; i < lignes; ++i) {
         for (int j = 0; j < colonnes; ++j) {
             int etat;
-            fichier >> etat;  // Lire l'état (0 ou 1)
+            fichier >> etat;  // Lire l'ï¿½tat (0 ou 1)
             matrice[i][j] = etat;
         }
     }
@@ -54,7 +54,7 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
 }
 
 void Fichier::creerDossier() {
-    // Crée un dossier avec le même nom que le fichier (sans l'extension)
+    // Crï¿½e un dossier avec le mï¿½me nom que le fichier (sans l'extension)
     nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
 
     if (!mkdir(nomDossier.c_str(), 0777)) {
@@ -65,17 +65,30 @@ void Fichier::creerDossier() {
     }
 }
 
+/*void Fichier::creerDossier() {
+    // CrÃ©e un dossier avec le mÃªme nom que le fichier (sans l'extension)
+    nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
+
+    // Utilisez mkdir sans mode sous Windows
+    if (_mkdir(nomDossier.c_str()) == 0) {
+        std::cout << "Dossier crÃ©Ã© : " << nomDossier << std::endl;
+    }
+    else {
+        std::cerr << "Erreur lors de la crÃ©ation du dossier ou dossier existant." << std::endl;
+    }
+}*/
+
 void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille, int numeroMiseAJour) {
-    // Crée un nom de fichier basé sur le numéro de mise à jour
+    // Crï¿½e un nom de fichier basï¿½ sur le numï¿½ro de mise ï¿½ jour
     std::string nomFichierSortie = nomDossier + "/iteration" + std::to_string(numeroMiseAJour) + ".txt";
 
-    std::ofstream fichierSortie(nomFichierSortie);  // Ouvre le fichier en écriture
+    std::ofstream fichierSortie(nomFichierSortie);  // Ouvre le fichier en ï¿½criture
     if (!fichierSortie) {
         std::cerr << "Erreur : impossible de creer le fichier " << nomFichierSortie << std::endl;
         return;
     }
     fichierSortie << grille.size() << " " << grille[0].size() << "\n";
- 
+
     for (const auto& ligne : grille) {
         for (const auto& cellule : ligne) {
             fichierSortie << (cellule.estVivante() ? "1" : "0") << " ";
