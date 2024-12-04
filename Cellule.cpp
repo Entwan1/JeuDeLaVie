@@ -8,22 +8,18 @@ bool Cellule::estVivante() const {
     return vivante;
 }
 
-// Méthode pour déterminer l'état suivant en fonction des voisins
+// Mï¿½thode pour dï¿½terminer l'ï¿½tat suivant en fonction des voisins
 void Cellule::determinerEtatSuivant(const std::vector<std::vector<Cellule>>& grille, int x, int y, int lignes, int colonnes) {
     int voisinsVivants = 0;
 
-    // Parcourir les 8 voisins autour de la cellule
     for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
-            if (!(dx == 0 && dy == 0)) {  // Ignorer la cellule elle-même
-                int nx = x + dx;
-                int ny = y + dy;
+            if (!(dx == 0 && dy == 0)) {  // Ignorer la cellule elle-mÃªme
+                int nx = (x + dx + lignes) % lignes;  // Utilisation du modulo pour gÃ©rer le wrapping sur l'axe x
+                int ny = (y + dy + colonnes) % colonnes;  // Utilisation du modulo pour gÃ©rer le wrapping sur l'axe y
 
-                // Vérification des limites de la grille
-                if (nx >= 0 && nx < lignes && ny >= 0 && ny < colonnes) {
-                    if (grille[nx][ny].estVivante()) {
-                        ++voisinsVivants;
-                    }
+                if (grille[nx][ny].estVivante()) {
+                    ++voisinsVivants;
                 }
             }
         }
@@ -46,7 +42,7 @@ void Cellule::determinerEtatSuivant(const std::vector<std::vector<Cellule>>& gri
     }
 }
 
-// Appliquer l'état suivant calculé
+// Appliquer l'ï¿½tat suivant calculï¿½
 void Cellule::appliquerEtatSuivant() {
     vivante = prochainEtat;
 }
