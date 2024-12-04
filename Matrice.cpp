@@ -82,3 +82,4 @@ bool Matrice::estStable() {
     }
     return true; // La grille n'a pas chang�, elle est stable
 }
+
