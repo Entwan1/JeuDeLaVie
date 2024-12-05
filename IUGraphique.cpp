@@ -5,7 +5,7 @@
 
 IUGraphique::IUGraphique(int tailleCellule)
     : tailleCellule(tailleCellule),
-    delaiMs(delaiMs), // Initialisation du délai
+    delaiMs(delaiMs), // Initialisation du délai 
     estEnCours(false),
     constructionSelectionnee(Constructions::Aucune) {
 }
