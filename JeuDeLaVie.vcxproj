@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Cellule.cpp" />
     <ClCompile Include="Fichier.cpp" />
+    <ClCompile Include="Figure.cpp" />
     <ClCompile Include="IUGraphique.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrice.cpp" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Cellule.h" />
     <ClInclude Include="Fichier.h" />
+    <ClInclude Include="Figure.h" />
     <ClInclude Include="IUGraphique.h" />
     <ClInclude Include="Matrice.h" />
   </ItemGroup>

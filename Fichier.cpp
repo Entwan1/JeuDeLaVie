@@ -47,7 +47,7 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
     for (int i = 0; i < lignes; ++i) {
         for (int j = 0; j < colonnes; ++j) {
             int etat;
-            fichier >> etat;  // Lire l'�tat (0 ou 1)
+            fichier >> etat;  // Lire l'etat (0 ou 1)
             matrice[i][j] = etat;
         }
     }
@@ -56,7 +56,7 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
 }
 
 void Fichier::creerDossier() {
-    // Cr�e un dossier avec le m�me nom que le fichier (sans l'extension)
+    // Cree un dossier avec le meme nom que le fichier (sans l'extension)
     nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
 
     if (!mkdir(nomDossier.c_str(), 0777)) {
@@ -67,24 +67,11 @@ void Fichier::creerDossier() {
     }
 }
 
-/*void Fichier::creerDossier() {
-    // Crée un dossier avec le même nom que le fichier (sans l'extension)
-    nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
-
-    // Utilisez mkdir sans mode sous Windows
-    if (_mkdir(nomDossier.c_str()) == 0) {
-        std::cout << "Dossier créé : " << nomDossier << std::endl;
-    }
-    else {
-        std::cerr << "Erreur lors de la création du dossier ou dossier existant." << std::endl;
-    }
-}*/
-
 void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille, int numeroMiseAJour) {
-    // Cr�e un nom de fichier bas� sur le num�ro de mise � jour
+    // Cree un nom de fichier bas� sur le numero de mise a jour
     std::string nomFichierSortie = nomDossier + "/iteration" + std::to_string(numeroMiseAJour) + ".txt";
 
-    std::ofstream fichierSortie(nomFichierSortie);  // Ouvre le fichier en �criture
+    std::ofstream fichierSortie(nomFichierSortie);  // Ouvre le fichier en ecriture
     if (!fichierSortie) {
         std::cerr << "Erreur : impossible de creer le fichier " << nomFichierSortie << std::endl;
         return;
@@ -99,3 +86,16 @@ void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille,
     }
     fichierSortie.close();  // Ferme le fichier
 }
+
+/*void Fichier::creerDossier() {
+    // Crée un dossier avec le même nom que le fichier (sans l'extension)
+    nomDossier = nomFichier.substr(0, nomFichier.find_last_of(".")) + "_out";
+
+    // Utilisez mkdir sans mode sous Windows
+    if (_mkdir(nomDossier.c_str()) == 0) {
+        std::cout << "Dossier créé : " << nomDossier << std::endl;
+    }
+    else {
+        std::cerr << "Erreur lors de la création du dossier ou dossier existant." << std::endl;
+    }
+}*/

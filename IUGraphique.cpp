@@ -3,12 +3,10 @@
 #include <thread>
 #include <chrono>
 
-IUGraphique::IUGraphique(int tailleCellule)
+IUGraphique::IUGraphique(int tailleCellule, FigureType motif)
     : tailleCellule(tailleCellule),
-    delaiMs(delaiMs), // Initialisation du délai 
     estEnCours(false),
-    constructionSelectionnee(Constructions::Aucune) {
-}
+    constructionSelectionnee(motif) {} // Initialisation du délai 
 
 void IUGraphique::lancer(Matrice& grille, int delaiMs) {
     int largeurFenetre = grille.getGrille()[0].size() * tailleCellule;
@@ -57,40 +55,18 @@ void IUGraphique::gererEvenements(sf::Event& event, Matrice& grille) {
 }
 
 void IUGraphique::placerConstruction(Matrice& grille, int x, int y) {
+    auto motif = Figure::getMotif(constructionSelectionnee);
+    int hauteur = motif.size();
+    int largeur = motif[0].size();
+
     auto& grilleRef = grille.getGrille();
 
-    // Exemple de motif de planeur
-    int config[3][3] = {
-        {0, 1, 0},
-        {0, 0, 1},
-        {1, 1, 1}
-    };
-
-    // Placer le motif en vérifiant les limites
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < hauteur; ++i) {
+        for (int j = 0; j < largeur; ++j) {
             int nx = x + j;
             int ny = y + i;
             if (nx >= 0 && nx < grilleRef[0].size() && ny >= 0 && ny < grilleRef.size()) {
-                grilleRef[ny][nx] = Cellule(config[i][j] == 1); // Assurez-vous que Cellule peut être initialisée comme ça
-            }
-        }
-    }
-}
-template<size_t L, size_t C>
-void IUGraphique::placerMotif(std::vector<std::vector<Cellule>>& grille,
-    int startX, int startY,
-    int(&motif)[L][C],
-    int hauteur, int largeur) {
-    for (int i = 0; i < hauteur; ++i) {
-        for (int j = 0; j < largeur; ++j) {
-            int x = startX + j;
-            int y = startY + i;
-
-            // Vérifier les limites de la grille
-            if (x >= 0 && x < grille[0].size() &&
-                y >= 0 && y < grille.size()) {
-                grille[y][x] = (motif[i][j] == 1);
+                grilleRef[ny][nx] = Cellule(motif[i][j] == 1);
             }
         }
     }

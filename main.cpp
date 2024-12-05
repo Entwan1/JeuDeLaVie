@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+
 int main() {
 	int nb_iter = 30;
 	string nomFichier;
@@ -20,7 +21,7 @@ int main() {
 	cout << "- 1 : mode fichier" << endl;
 	cout << "- 2 : mode graphique" << endl;
 	cin >> mode;
-	
+
 	if (mode == 1) {
 		fichier.creerDossier();
 		for (int i = 0; i < nb_iter + 1; i++) {
@@ -30,10 +31,10 @@ int main() {
 		}
 	}
 	else if (mode == 2) {
-		int tailleCellule = 20;  // Taille de chaque cellule à l'écran
+		int tailleCellule = 20;  // Taille de chaque cellule � l'�cran
 		int delaiMs = 500;
-		IUGraphique interfaceGraphique(tailleCellule);
-	
+		IUGraphique interfaceGraphique(tailleCellule, FigureType::Planeur);
+
 		interfaceGraphique.lancer(grille, delaiMs);
 	}
 	else {
