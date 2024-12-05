@@ -7,9 +7,11 @@ SRCS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.cpp
 HEADERS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.h' -print)
 
 main: $(SRCS) $(HEADERS)
+	@rm -f main            # Supprime l'ancien exécutable s'il existe
 	$(CXX) $(CXXFLAGS) $(SRCS) -o "$@"
 
 main-debug: $(SRCS) $(HEADERS)
+	@rm -f main-debug      # Supprime l'ancien exécutable de débogage s'il existe
 	$(CXX) $(CXXFLAGS) -U_FORTIFY_SOURCE -O0 $(SRCS) -o "$@"
 
 clean:
