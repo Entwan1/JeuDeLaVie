@@ -12,6 +12,7 @@ public:
 
 private:
     int tailleCellule;
+    int delaiMs;
     sf::RenderWindow fenetre;
     bool estEnCours;
     FigureType constructionSelectionnee;

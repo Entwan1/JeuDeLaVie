@@ -39,7 +39,7 @@ void Matrice::mettreAJour(int ligne, int colonne) {
                 grille[i][j].determinerEtatSuivant(grille, i, j, ligne, colonne);
             }
         }
-        };
+    };
 
     // Répartition des lignes entre les threads
     int lignesParThread = ligne / nb_threads;

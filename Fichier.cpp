@@ -1,6 +1,5 @@
 
 #include "Fichier.h"
-#include "Cellule.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -20,7 +19,7 @@ void Fichier::lancer(int max_iter, Matrice& matrice) {
     matrice.mettreAJour(lignes, colonnes);
     while (!matrice.estStable() && compt < max_iter+1) {
         matrice.afficher();
-        sauvegarderGrille(matrice.getGrille(), compt);
+        sauvegarderGrille(matrice, compt);
         matrice.mettreAJour(lignes, colonnes);
         compt++;
     }
@@ -65,7 +64,7 @@ void Fichier::creerDossier() {
     }
 }
 
-void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille, int numeroMiseAJour) {
+void Fichier::sauvegarderGrille(Matrice& grille, int numeroMiseAJour) {
     // Cree un nom de fichier bas� sur le numero de mise a jour
     std::string nomFichierSortie = nomDossier + "/iteration" + std::to_string(numeroMiseAJour) + ".txt";
 
@@ -74,9 +73,9 @@ void Fichier::sauvegarderGrille(const std::vector<std::vector<Cellule>>& grille,
         std::cerr << "Erreur : impossible de creer le fichier " << nomFichierSortie << std::endl;
         return;
     }
-    fichierSortie << grille.size() << " " << grille[0].size() << "\n";
+    fichierSortie << grille.getGrille().size() << " " << grille.getGrille()[0].size() << "\n";
 
-    for (const auto& ligne : grille) {
+    for (const auto& ligne : grille.getGrille()) {
         for (const auto& cellule : ligne) {
             fichierSortie << (cellule.estVivante() ? "1" : "0") << " ";
         }

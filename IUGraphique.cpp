@@ -5,10 +5,15 @@
 
 IUGraphique::IUGraphique(int tailleCellule, FigureType motif)
     : tailleCellule(tailleCellule),
+    delaiMs(500), // Initialisation du délai (en ms)
     estEnCours(false),
-    constructionSelectionnee(motif) {} // Initialisation du délai 
+    constructionSelectionnee(motif)
+    
+{}
 
-void IUGraphique::lancer(Matrice& grille, int delaiMs) {
+void IUGraphique::lancer(Matrice& grille, int delaiMsInitial) {
+    delaiMs = delaiMsInitial;
+
     int largeurFenetre = grille.getGrille()[0].size() * tailleCellule;
     int hauteurFenetre = grille.getGrille().size() * tailleCellule;
 
@@ -37,21 +42,27 @@ void IUGraphique::gererEvenements(sf::Event& event, Matrice& grille) {
     // Mise à jour de la position du curseur
     positionCurseur = sf::Mouse::getPosition(fenetre);
 
-    // Gestion de la pause/play avec la touche Espace
+    // Gestion des touches
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space) {
-            estEnCours = !estEnCours;
+            estEnCours = !estEnCours; // Basculer entre pause et lecture
         }
 
-        // Ajout de la gestion de la touche 'G'
+        if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Equal) { // '+' ou '=' pour augmenter la vitesse
+            delaiMs = std::max(50, delaiMs - 50); // Réduction du délai (min 50 ms)
+        }
+
+        if (event.key.code == sf::Keyboard::M || event.key.code == sf::Keyboard::Dash) { // '-' pour diminuer la vitesse
+            delaiMs += 50; // Augmentation du délai
+        }
+
+        // Gestion de la touche 'G' pour ajouter une construction
         if (event.key.code == sf::Keyboard::G) {
             int x = positionCurseur.x / tailleCellule;
             int y = positionCurseur.y / tailleCellule;
             placerConstruction(grille, x, y);
         }
     }
-
-    // Suppression de la gestion du clic de souris
 }
 
 void IUGraphique::placerConstruction(Matrice& grille, int x, int y) {
