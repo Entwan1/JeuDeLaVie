@@ -1,6 +1,5 @@
 
 #include "Fichier.h"
-
 #include "Cellule.h"
 #include <fstream>
 #include <iostream>
@@ -13,18 +12,18 @@ using namespace std;
 
 Fichier::Fichier(std::string nom) : nomFichier(nom) {}
 
-int Fichier::getLigne() {
-    int ligne;
-    ifstream fichier(nomFichier);
-    fichier >> ligne;
-    return ligne;
-}
-
-int Fichier::getColonne() {
-    int ligne, colonne;
-    ifstream fichier(nomFichier);
-    fichier >> ligne >> colonne;
-    return colonne;
+void Fichier::lancer(int max_iter, Matrice& matrice) {
+    int lignes = matrice.getGrille().size();
+    int colonnes = matrice.getGrille()[0].size();
+    int compt = 1;
+    creerDossier();
+    matrice.mettreAJour(lignes, colonnes);
+    while (!matrice.estStable() && compt < max_iter+1) {
+        matrice.afficher();
+        sauvegarderGrille(matrice.getGrille(), compt);
+        matrice.mettreAJour(lignes, colonnes);
+        compt++;
+    }
 }
 
 std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
@@ -36,7 +35,6 @@ std::vector<std::vector<Cellule>> Fichier::genererMatrice() {
         cerr << "Erreur : Impossible d'ouvrir le fichier " << nomFichier << endl;
         exit(1);
     }
-
     int lignes;
     int colonnes;
 

@@ -3,24 +3,22 @@
 
 #include <vector>
 #include "Cellule.h"
-#include "Fichier.h"
+
 
 class Cellule;
 
 class Matrice {
 private:
-	std::string nomFichier;
+	//std::string nomFichier;
 	std::vector<std::vector<Cellule>> grille;
 	std::vector<std::vector<Cellule>> ancienneGrille;
-	Fichier fichier;
 
 public:
-	Matrice(Fichier fichier);
+	Matrice(std::vector<std::vector<Cellule>> matrice);
 	void afficher();
 	void mettreAJour(int ligne, int colonne);
 	bool estStable();
 	std::vector<std::vector<Cellule>>& getGrille();
-	const std::vector<std::vector<Cellule>>& getGrille() const;
 };
 
 #endif

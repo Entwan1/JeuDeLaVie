@@ -142,10 +142,11 @@
     <ClInclude Include="Matrice.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test.txt" />
+    <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
+    <Text Include="test.txt" />
+    <Text Include="teststable.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

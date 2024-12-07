@@ -7,14 +7,14 @@ using namespace std;
 
 
 int main() {
-	int nb_iter = 30;
+	int nb_iter = 50;
 	string nomFichier;
 
 	cout << "Nom fichier :";
 	cin >> nomFichier;
 
 	Fichier fichier(nomFichier);
-	Matrice grille(fichier);
+	Matrice grille(fichier.genererMatrice());
 	int mode;
 
 	cout << "Choix du mode :" << endl;
@@ -23,18 +23,12 @@ int main() {
 	cin >> mode;
 
 	if (mode == 1) {
-		fichier.creerDossier();
-		for (int i = 0; i < nb_iter + 1; i++) {
-			grille.afficher();
-			fichier.sauvegarderGrille(grille.getGrille(), i);
-			grille.mettreAJour(fichier.getLigne(), fichier.getColonne());
-		}
+		fichier.lancer(nb_iter, grille);
 	}
 	else if (mode == 2) {
 		int tailleCellule = 20;  // Taille de chaque cellule � l'�cran
 		int delaiMs = 500;
 		IUGraphique interfaceGraphique(tailleCellule, FigureType::Planeur);
-
 		interfaceGraphique.lancer(grille, delaiMs);
 	}
 	else {

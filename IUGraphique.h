@@ -17,7 +17,7 @@ private:
     FigureType constructionSelectionnee;
     sf::Vector2i positionCurseur;
 
-    void dessinerGrille(const Matrice& grille);
+    void dessinerGrille(Matrice& grille);
     void gererEvenements(sf::Event& event, Matrice& grille);
     void placerConstruction(Matrice& grille, int x, int y);
 };

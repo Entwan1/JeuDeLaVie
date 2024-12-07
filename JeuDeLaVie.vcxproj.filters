@@ -52,11 +52,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Makefile">
       <Filter>Fichiers sources</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="teststable.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="test.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -4,15 +4,9 @@
 #include <thread>
 using namespace std;
 
-Matrice::Matrice(Fichier fichier) : fichier(nomFichier) {
-    grille = fichier.genererMatrice();
-}
+Matrice::Matrice(std::vector<std::vector<Cellule>> matrice) : grille(matrice){}
 
 std::vector<std::vector<Cellule>>& Matrice::getGrille() {
-    return grille;
-}
-
-const std::vector<std::vector<Cellule>>& Matrice::getGrille() const {
     return grille;
 }
 
@@ -82,4 +76,3 @@ bool Matrice::estStable() {
     }
     return true; // La grille n'a pas chang�, elle est stable
 }
-

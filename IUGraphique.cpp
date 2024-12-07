@@ -72,13 +72,13 @@ void IUGraphique::placerConstruction(Matrice& grille, int x, int y) {
     }
 }
 
-void IUGraphique::dessinerGrille(const Matrice& grille) {
+void IUGraphique::dessinerGrille(Matrice& grille) {
     fenetre.clear(sf::Color::Black);
 
     sf::RectangleShape cellule(sf::Vector2f(tailleCellule - 1.0f, tailleCellule - 1.0f));
     cellule.setFillColor(sf::Color::White);
 
-    const auto& matrice = grille.getGrille();
+    auto& matrice = grille.getGrille();
 
     for (size_t i = 0; i < matrice.size(); ++i) {
         for (size_t j = 0; j < matrice[i].size(); ++j) {
