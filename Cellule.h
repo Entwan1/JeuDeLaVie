@@ -6,8 +6,8 @@
 
 class Cellule {
 private:
-    bool vivante;        // �tat actuel
-    bool prochainEtat;   // �tat apr�s mise � jour
+    bool vivante;        // Etat actuel
+    bool prochainEtat;   // Etat apres mise a jour
 
 public:
     Cellule() : vivante(false), prochainEtat(false) {}

@@ -3,12 +3,12 @@
 #include <iostream>
 using namespace std;
 
-
+// Fonction qui renvoie l'etat de la cellule
 bool Cellule::estVivante() const {
     return vivante;
 }
 
-// M�thode pour d�terminer l'�tat suivant en fonction des voisins
+// Methode pour determiner l'etat suivant en fonction des voisins
 void Cellule::determinerEtatSuivant(const std::vector<std::vector<Cellule>>& grille, int x, int y, int lignes, int colonnes) {
     int voisinsVivants = 0;
 
@@ -19,11 +19,12 @@ void Cellule::determinerEtatSuivant(const std::vector<std::vector<Cellule>>& gri
                 int ny = (y + dy + colonnes) % colonnes;  // Utilisation du modulo pour gérer le wrapping sur l'axe y
 
                 if (grille[nx][ny].estVivante()) {
-                    ++voisinsVivants;
+                    ++voisinsVivants;  // On compte le nombre de cellules voisines
                 }
             }
         }
     }
+    // On applique les règles du jeu de la vie en fonction du nombre de cellules vivantes
     if (vivante) {
         if (voisinsVivants == 2 || voisinsVivants == 3) {
             prochainEtat = true;
@@ -42,7 +43,7 @@ void Cellule::determinerEtatSuivant(const std::vector<std::vector<Cellule>>& gri
     }
 }
 
-// Appliquer l'�tat suivant calcul�
+// Appliquer l'etat suivant a la cellule
 void Cellule::appliquerEtatSuivant() {
     vivante = prochainEtat;
 }

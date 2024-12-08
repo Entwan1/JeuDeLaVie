@@ -6,13 +6,14 @@ using namespace std;
 
 Matrice::Matrice(std::vector<std::vector<Cellule>> matrice) : grille(matrice){}
 
+// Méthode pour obtenir une référence à la grille interne
 std::vector<std::vector<Cellule>>& Matrice::getGrille() {
     return grille;
 }
-
+// Méthode pour afficher l'état actuel de la grille dans la console
 void Matrice::afficher() {
-    for (auto& ligne : grille) {
-        for (auto& cellule : ligne) {
+    for (auto& ligne : grille) { // Parcours des lignes de la grille
+        for (auto& cellule : ligne) { // Parcours des cellules dans une ligne
             if (cellule.estVivante()) {
                 std::cout << "1" << " ";
             }
@@ -20,15 +21,15 @@ void Matrice::afficher() {
                 std::cout << "0" << " ";
             }
         }
-        std::cout << "\n";
+        std::cout << "\n"; // Nouvelle ligne pour passer à la ligne suivante
     }
-    std::cout << "\n";
+    std::cout << "\n"; // Ajoute un espacement supplémentaire pour plus de lisibilité
 }
 
 void Matrice::mettreAJour(int ligne, int colonne) {
     ancienneGrille = grille;  // Copie de l'état actuel de la grille
 
-    // Nombre de threads (vous pouvez ajuster selon le nombre de cœurs)
+    // Nombre de threads
     const unsigned int nb_threads = std::thread::hardware_concurrency();
     std::vector<std::thread> threads;
 
@@ -74,5 +75,5 @@ bool Matrice::estStable() {
             }
         }
     }
-    return true; // La grille n'a pas chang�, elle est stable
+    return true; // La grille n'a pas change, elle est stable
 }

@@ -9,7 +9,6 @@ class Cellule;
 
 class Matrice {
 private:
-	//std::string nomFichier;
 	std::vector<std::vector<Cellule>> grille;
 	std::vector<std::vector<Cellule>> ancienneGrille;
 

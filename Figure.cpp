@@ -1,5 +1,6 @@
 #include "Figure.h"
 
+// On défini les formes que l'on peux ajouter manuellement dans la grille
 std::vector<std::vector<int>> Figure::getMotif(FigureType type) {
     switch (type) {
     case FigureType::Planeur:
