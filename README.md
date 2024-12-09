@@ -1,4 +1,5 @@
-#Jeu de la Vie
+**Jeu de la Vie**
+
 Ce projet est une implémentation en C++ orienté objet du célèbre Jeu de la Vie de John Conway. Ce programme simule l'évolution d'une grille de cellules selon des règles prédéfinies, permettant d'observer des phénomènes intéressants d'automates cellulaires.
 
 Fonctionnalités
