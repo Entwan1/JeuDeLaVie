@@ -94,8 +94,8 @@ void IUGraphique::dessinerGrille(Matrice& grille) {
     cellule.setFillColor(sf::Color::White);
 
     // Parcours de la matrice pour dessiner les cellules vivantes
-    for (size_t i = 0; i < grille.getGrille().size(); ++i) {
-        for (size_t j = 0; j < grille.getGrille()[i].size(); ++j) {
+    for (int i = 0; i < grille.getGrille().size(); ++i) {
+        for (int j = 0; j < grille.getGrille()[i].size(); ++j) {
             if (grille.getGrille()[i][j].estVivante()) {
                 cellule.setPosition(j * tailleCellule, i * tailleCellule); // Placement de la cellule
                 fenetre.draw(cellule); // Dessin de la cellule

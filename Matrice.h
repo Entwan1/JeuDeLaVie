@@ -18,6 +18,7 @@ public:
 	void mettreAJour(int ligne, int colonne);
 	bool estStable();
 	std::vector<std::vector<Cellule>>& getGrille();
+	void calculerEtatSuivant(int debut, int fin, int colonne, int ligne);
 };
 
 #endif
